@@ -1,0 +1,32 @@
+name: project-template-generator
+description: Generates scaffolded GenAI agent projects based on chosen framework, language, and deployment target.
+input_schema:
+  type: object
+  properties:
+    project_name:
+      type: string
+      description: Name of the project directory to create.
+    agent_type:
+      type: string
+      enum:
+        - adk
+        - adk_a2a
+        - adk_live
+        - agentic_rag
+        - langgraph
+      description: Architectural pattern for the agent.
+    language:
+      type: string
+      enum:
+        - python
+        - typescript
+        - go
+        - java
+      description: Programming language runtime.
+    output_dir:
+      type: string
+      description: Destination directory path on the local filesystem.
+  required:
+    - project_name
+    - agent_type
+    - language

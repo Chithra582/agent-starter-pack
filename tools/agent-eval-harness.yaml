@@ -1,0 +1,22 @@
+name: agent-eval-harness
+description: Executes automated evaluation suites, test cases, and quality scoring against scaffolded agents.
+input_schema:
+  type: object
+  properties:
+    project_path:
+      type: string
+      description: Absolute or relative path to the scaffolded agent project.
+    eval_suite:
+      type: string
+      enum:
+        - unit
+        - integration
+        - rag_faithfulness
+        - latency_benchmark
+      description: Type of evaluation benchmark to execute.
+    min_score_threshold:
+      type: number
+      description: Minimum quality score required to pass evaluation (0.0 to 1.0).
+  required:
+    - project_path
+    - eval_suite

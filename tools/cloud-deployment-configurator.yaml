@@ -1,0 +1,25 @@
+name: cloud-deployment-configurator
+description: Configures Google Cloud infrastructure manifests and CI/CD pipelines for agent deployment.
+input_schema:
+  type: object
+  properties:
+    target_platform:
+      type: string
+      enum:
+        - cloud_run
+        - vertex_ai_reasoning_engine
+        - gke
+      description: Target hosting platform on Google Cloud.
+    project_id:
+      type: string
+      description: Google Cloud project ID.
+    region:
+      type: string
+      description: Google Cloud deployment region (e.g. us-central1).
+    enable_ci_cd:
+      type: boolean
+      description: Whether to generate Cloud Build and GitHub Actions workflows.
+  required:
+    - target_platform
+    - project_id
+    - region

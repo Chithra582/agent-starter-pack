@@ -1,0 +1,21 @@
+spec_version: "0.1.0"
+name: "agent-starter-pack"
+version: "0.41.3"
+description: "CLI and scaffolding engine to bootstrap production-ready Google Cloud GenAI agent projects across ADK, Agentic RAG, and LangGraph."
+author: "Google LLC <agent-starter-pack@google.com>"
+license: "Apache-2.0"
+metadata:
+  domain: "Developer Tools / GenAI Agent Scaffolding & Cloud Deployment"
+  category: "Developer Tools"
+  framework: "Google Cloud Agent Starter Pack (ADK / LangGraph / Vertex AI)"
+  language: "Python"
+skills:
+  - "template-scaffolding"
+  - "cloud-deployment-pipeline"
+  - "eval-benchmark-integration"
+  - "agentic-rag-orchestration"
+tools:
+  - "project-template-generator"
+  - "cloud-deployment-configurator"
+  - "agent-eval-harness"
+  - "rag-corpus-indexer"
