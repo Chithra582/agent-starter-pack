@@ -1,8 +1,8 @@
 # EXPLAINABILITY.md
 
-This document explains the internal mechanisms, data lineage, operational boundaries, and governance framework of **# Explainability & Decision Transparency Report** (`agent-starter-pack`) in accordance with the **OpenGAP v0.1.0** specification for the **HiDevs GitAgent Passport** clearance pipeline.
+This document explains the internal mechanisms, data lineage, operational boundaries, and governance framework of **Agent Starter Pack** (`agent-starter-pack`) in accordance with the **OpenGAP v0.1.0** specification for the **HiDevs GitAgent Passport** clearance pipeline.
 
-> **Agent Name:** # Explainability & Decision Transparency Report (`agent-starter-pack`)  
+> **Agent Name:** Agent Starter Pack (`agent-starter-pack`)  
 > **Specification:** OpenGAP v0.1.0  
 > **Category / Domain:** Developer Tools / GenAI Agent Scaffolding & Cloud Deployment  
 > **Compliance Standard:** OpenGAP Checkpoint 2 (Explainability & Decision Governance), OWASP LLM Top 10, MITRE ATLAS  
@@ -11,7 +11,7 @@ This document explains the internal mechanisms, data lineage, operational bounda
 
 ## How the Agent Decides
 
-# Explainability & Decision Transparency Report operates via a deterministic five-stage operational pipeline.
+The scaffolding engine operates through a deterministic 5-stage pipeline translating user requirements into verified, production-ready GenAI agent codebases.
 
 ### 1. Decision Architecture
 
@@ -52,7 +52,6 @@ The runtime intake, state classification, evaluation, and execution tracking ope
 
 ### 2. Decision Logic & Routing Formulations
 
-Scoring
 Template selection across candidate architectures $t \in T$ is resolved by evaluating multi-attribute alignment with user requirements $R$:
 
 $$S_{\text{match}}(t) = w_1 \cdot \text{ArchitectureFit}(t, R) + w_2 \cdot \text{RuntimeCompatibility}(t, R) + w_3 \cdot \text{CloudTargetSupport}(t, R)$$
@@ -70,29 +69,31 @@ Where $\alpha = 0.40$, $\beta = 0.30$, $\gamma = 0.30$, and $\tau_{\text{ready}}
 
 ### 3. Thresholding & Refusal Decision Criteria
 
-# Explainability & Decision Transparency Report enforces strict operational boundaries and deterministic refusal thresholds:
-- **Refusal on ERR_DIRTY_OUTPUT_DIRECTORY**: **Directory Hygiene** halts execution with code `ERR_DIRTY_OUTPUT_DIRECTORY`.
-- **Refusal on ERR_INVALID_GCP_PROJECT_ID**: **GCP Project Identifier** halts execution with code `ERR_INVALID_GCP_PROJECT_ID`.
-- **Refusal on ERR_TEMPLATE_COMPATIBILITY_CONFLICT**: **Template Compatibility** halts execution with code `ERR_TEMPLATE_COMPATIBILITY_CONFLICT`.
-- **Refusal on ERR_EVAL_BENCHMARK_SCORE_FAILED**: **Eval Quality Gate** halts execution with code `ERR_EVAL_BENCHMARK_SCORE_FAILED`.
-- **Refusal on ERR_INSUFFICIENT_CLOUD_IAM_PERMISSIONS**: **Security IAM Scope** halts execution with code `ERR_INSUFFICIENT_CLOUD_IAM_PERMISSIONS`.
+Agent Starter Pack enforces strict operational boundaries and deterministic refusal thresholds:
+- **Refusal on ERR_DIRTY_OUTPUT_DIRECTORY**: Directory Hygiene (Target path exists and non-empty) halts execution with code `ERR_DIRTY_OUTPUT_DIRECTORY`.
+- **Refusal on ERR_INVALID_GCP_PROJECT_ID**: GCP Project Identifier (Malformed project ID format) halts execution with code `ERR_INVALID_GCP_PROJECT_ID`.
+- **Refusal on ERR_TEMPLATE_COMPATIBILITY_CONFLICT**: Template Compatibility (Incompatible language/runtime) halts execution with code `ERR_TEMPLATE_COMPATIBILITY_CONFLICT`.
+- **Refusal on ERR_EVAL_BENCHMARK_SCORE_FAILED**: Eval Quality Gate ($Q_{\text{gate}} < 0.95$) halts execution with code `ERR_EVAL_BENCHMARK_SCORE_FAILED`.
+- **Refusal on ERR_INSUFFICIENT_CLOUD_IAM_PERMISSIONS**: Security IAM Scope (Wildcard `roles/owner` requested) halts execution with code `ERR_INSUFFICIENT_CLOUD_IAM_PERMISSIONS`.
 
 ### 4. Fallback Decision Mechanism
 
 Continuous operational stability is maintained through layered fault recovery:
+- **Tier 1 (Automated Formatting & Dependency AutoFix)**: When template generation triggers linter or typechecker warnings, the engine automatically runs `ruff format` and dependency resolution passes.
+- **Tier 2 (Template Downgrade & Alternative Suggestion)**: If an advanced architecture (e.g. A2A or Multimodal Live) lacks required runtime bindings, the engine suggests the standard ADK base template.
+- **Tier 3 (Interactive Developer SignOff)**: Cloud deployment configurations that provision billable resources or modify cloud IAM permissions require affirmative developer confirmation before manifest generation.
 - **Model Fallback Cascade**: High-level reasoning and synthesis default to `gemini-2.0-flash` with automatic failover to `gpt-4o` and `claude-3-5-sonnet`.
 
 ### 5. Human-in-the-Loop Governance
 
 Human operators retain sovereign authority over the multi-agent execution lifecycle:
-- **Consequential Action Sign-Off**: Sensitive and consequential actions require operator sign-off.
-- **Offline Ledger Auditing**: Operators can verify execution records and state transitions offline.
+- **Benchmark Trajectory Auditing**: Operators inspect evaluation traces, raw generation tokens, and container logs to verify scoring fidelity.
 
 ---
 
 ## The Data It Uses
 
-# Explainability & Decision Transparency Report operates under strict principles of data minimization, environment isolation, and privacy protection.
+Agent Starter Pack operates under strict principles of data minimization, environment isolation, and privacy protection.
 
 ### 1. Ingested Input Data
 
@@ -103,7 +104,9 @@ The framework processes only operational data necessary to perform its functions
 
 ### 2. Configuration & Reference Data
 
-- **Configuration Schemas**: Declarative system policy files.
+- **Google Cloud Reference Architectures**: Cloud Run, Vertex AI Reasoning Engine, Vertex AI Search.
+- **Modern Software Engineering Standards**: Clean architecture, Twelve-Factor App principles, OCI container standards.
+- **LLM Evaluation Frameworks**: RAG faithfulness, answer relevancy, and deterministic tool call verification.
 
 ### 3. Base Model & Inference Lineage
 
@@ -121,7 +124,7 @@ The framework processes only operational data necessary to perform its functions
 
 ## Limitations
 
-Understanding the operational boundaries and technical constraints of # Explainability & Decision Transparency Report is essential for effective deployment.
+Understanding the operational boundaries and technical constraints of Agent Starter Pack is essential for effective deployment.
 
 ### 1. Dependency Version Churn Across Multi-Language Frameworks
 - **Limitation**: Fast-evolving upstream dependencies in GenAI libraries can occasionally cause transient lockfile conflicts.
