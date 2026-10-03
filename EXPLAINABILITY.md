@@ -11,8 +11,7 @@ This document explains the internal mechanisms, data lineage, operational bounda
 
 ## How the Agent Decides
 
-### 1. Deterministic Multi-Stage Decision Pipeline
-The scaffolding engine operates through a deterministic 5-stage pipeline translating user requirements into verified, production-ready GenAI agent codebases.
+# Explainability & Decision Transparency Report operates via a deterministic five-stage operational pipeline.
 
 ### 1. Decision Architecture
 
@@ -53,13 +52,30 @@ The runtime intake, state classification, evaluation, and execution tracking ope
 
 ### 2. Decision Logic & Routing Formulations
 
+Scoring
+Template selection across candidate architectures $t \in T$ is resolved by evaluating multi-attribute alignment with user requirements $R$:
 
+$$S_{\text{match}}(t) = w_1 \cdot \text{ArchitectureFit}(t, R) + w_2 \cdot \text{RuntimeCompatibility}(t, R) + w_3 \cdot \text{CloudTargetSupport}(t, R)$$
+
+Where:
+- $w_1 = 0.45$: Alignment between task complexity (e.g. conversational vs. multi-hop RAG) and template architecture.
+- $w_2 = 0.35$: Strict runtime match with chosen language (Python $\ge 3.10$, TypeScript, Go, Java).
+- $w_3 = 0.20$: Target infrastructure capability score (Cloud Run vs. Vertex AI Reasoning Engine).
+
+Automated quality gate verification before project release requires satisfying the compound threshold:
+
+$$Q_{\text{gate}}(p) = \alpha \cdot \text{TestPassRate}(p) + \beta \cdot \text{LintCompliance}(p) + \gamma \cdot \text{EvalScore}(p) \ge \tau_{\text{ready}}$$
+
+Where $\alpha = 0.40$, $\beta = 0.30$, $\gamma = 0.30$, and $\tau_{\text{ready}} = 0.95$.
 
 ### 3. Thresholding & Refusal Decision Criteria
 
 # Explainability & Decision Transparency Report enforces strict operational boundaries and deterministic refusal thresholds:
-- **Refusal on Policy Violation**: Requests violating boundary constraints halt with code `ERR_POLICY_VIOLATION`.
-- **Refusal on Timeout**: Executions exceeding budget limits terminate with code `ERR_EXECUTION_TIMEOUT`.
+- **Refusal on ERR_DIRTY_OUTPUT_DIRECTORY**: **Directory Hygiene** halts execution with code `ERR_DIRTY_OUTPUT_DIRECTORY`.
+- **Refusal on ERR_INVALID_GCP_PROJECT_ID**: **GCP Project Identifier** halts execution with code `ERR_INVALID_GCP_PROJECT_ID`.
+- **Refusal on ERR_TEMPLATE_COMPATIBILITY_CONFLICT**: **Template Compatibility** halts execution with code `ERR_TEMPLATE_COMPATIBILITY_CONFLICT`.
+- **Refusal on ERR_EVAL_BENCHMARK_SCORE_FAILED**: **Eval Quality Gate** halts execution with code `ERR_EVAL_BENCHMARK_SCORE_FAILED`.
+- **Refusal on ERR_INSUFFICIENT_CLOUD_IAM_PERMISSIONS**: **Security IAM Scope** halts execution with code `ERR_INSUFFICIENT_CLOUD_IAM_PERMISSIONS`.
 
 ### 4. Fallback Decision Mechanism
 
@@ -69,8 +85,8 @@ Continuous operational stability is maintained through layered fault recovery:
 ### 5. Human-in-the-Loop Governance
 
 Human operators retain sovereign authority over the multi-agent execution lifecycle:
-- **Operational Review**: Sensitive actions require operator sign-off.
-- **Audit Logging**: All decisions are recorded for auditability.
+- **Consequential Action Sign-Off**: Sensitive and consequential actions require operator sign-off.
+- **Offline Ledger Auditing**: Operators can verify execution records and state transitions offline.
 
 ---
 
@@ -81,11 +97,13 @@ Human operators retain sovereign authority over the multi-agent execution lifecy
 ### 1. Ingested Input Data
 
 The framework processes only operational data necessary to perform its functions:
-- **Input Directives**: Operational tasks and data payloads.
+- **Project Configuration**: Project name, chosen language runtime, agent framework, frontend type, and cloud region.
+- **Template Schemas**: Cookiecutter JSON definitions, Jinja2 template files, and lockfile specifications.
+- **Test Telemetry**: Output logs from pytest, ruff lint checks, and Cloud Build pipeline executions.
 
 ### 2. Configuration & Reference Data
 
-- **Configuration Schemas**: Declarative system configuration files.
+- **Configuration Schemas**: Declarative system policy files.
 
 ### 3. Base Model & Inference Lineage
 
@@ -104,101 +122,6 @@ The framework processes only operational data necessary to perform its functions
 ## Limitations
 
 Understanding the operational boundaries and technical constraints of # Explainability & Decision Transparency Report is essential for effective deployment.
-
-### 1. Deterministic Multi-Stage Decision Pipeline
-The scaffolding engine operates through a deterministic 5-stage pipeline translating user requirements into verified, production-ready GenAI agent codebases.
-
-```
-+-----------------------------------------------------------------------------------+
-|                   Deterministic Agent Starter Pack Pipeline                       |
-+-----------------------------------------------------------------------------------+
-|  [Stage 1: Intent Ingestion & Parameter Validation Gate]                          |
-|     --> Ingest project specifications, validate language, runtime, & target flags  |
-+-----------------------------------------+-----------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-|  [Stage 2: Architectural Template & Pattern Resolution]                           |
-|     --> Match prompt intent against ADK, Agentic RAG, LangGraph, or A2A archetypes |
-+-----------------------------------------+-----------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-|  [Stage 3: Parameterized Code Generation & Dependency Locking]                    |
-|     --> Render cookiecutter templates, lock package dependencies, & configure envs|
-+-----------------------------------------+-----------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-|  [Stage 4: Cloud Infrastructure & CI/CD Pipeline Manifestation]                   |
-|     --> Emit Terraform definitions, Dockerfiles, & Cloud Build deployment triggers|
-+-----------------------------------------+-----------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-|  [Stage 5: Quality Assurance, Automated Tests & Eval Verification]                |
-|     --> Execute baseline unit test suite, linter rules, & verify clean project exit|
-+-----------------------------------------------------------------------------------+
-```
-
-### 2. Mathematical Decision & Affinity Scoring
-Template selection across candidate architectures $t \in T$ is resolved by evaluating multi-attribute alignment with user requirements $R$:
-
-$$S_{\text{match}}(t) = w_1 \cdot \text{ArchitectureFit}(t, R) + w_2 \cdot \text{RuntimeCompatibility}(t, R) + w_3 \cdot \text{CloudTargetSupport}(t, R)$$
-
-Where:
-- $w_1 = 0.45$: Alignment between task complexity (e.g. conversational vs. multi-hop RAG) and template architecture.
-- $w_2 = 0.35$: Strict runtime match with chosen language (Python $\ge 3.10$, TypeScript, Go, Java).
-- $w_3 = 0.20$: Target infrastructure capability score (Cloud Run vs. Vertex AI Reasoning Engine).
-
-Automated quality gate verification before project release requires satisfying the compound threshold:
-
-$$Q_{\text{gate}}(p) = \alpha \cdot \text{TestPassRate}(p) + \beta \cdot \text{LintCompliance}(p) + \gamma \cdot \text{EvalScore}(p) \ge \tau_{\text{ready}}$$
-
-Where $\alpha = 0.40$, $\beta = 0.30$, $\gamma = 0.30$, and $\tau_{\text{ready}} = 0.95$.
-
-### 3. Thresholding & Refusal Decision Criteria
-Execution is governed by deterministic refusal triggers with standardized error codes:
-
-| Threshold Parameter | Value | Decision / Refusal Action | Error Code |
-| :--- | :--- | :--- | :--- |
-| **Directory Hygiene** | Target path exists and non-empty | Refuse generation without `--overwrite` flag | `ERR_DIRTY_OUTPUT_DIRECTORY` |
-| **GCP Project Identifier** | Malformed project ID format | Reject input and mandate valid GCP project string | `ERR_INVALID_GCP_PROJECT_ID` |
-| **Template Compatibility** | Incompatible language/runtime | Abort generation and list valid matrix pairs | `ERR_TEMPLATE_COMPATIBILITY_CONFLICT` |
-| **Eval Quality Gate** | $Q_{\text{gate}} < 0.95$ | Block completion and report failing test diagnostics | `ERR_EVAL_BENCHMARK_SCORE_FAILED` |
-| **Security IAM Scope** | Wildcard `roles/owner` requested | Reject privilege escalation and enforce least privilege | `ERR_INSUFFICIENT_CLOUD_IAM_PERMISSIONS` |
-
-### 4. Multi-Tier Fallback Mechanisms & Human-in-the-Loop Governance
-1. **Tier 1 (Automated Formatting & Dependency Auto-Fix)**: When template generation triggers linter or type-checker warnings, the engine automatically runs `ruff format` and dependency resolution passes.
-2. **Tier 2 (Template Downgrade & Alternative Suggestion)**: If an advanced architecture (e.g. A2A or Multimodal Live) lacks required runtime bindings, the engine suggests the standard ADK base template.
-3. **Tier 3 (Interactive Developer Sign-Off)**: Cloud deployment configurations that provision billable resources or modify cloud IAM permissions require affirmative developer confirmation before manifest generation.
-
----
-
-## The Data It Uses
-
-### 1. Ingestion Data & Input Types
-- **Project Configuration**: Project name, chosen language runtime, agent framework, frontend type, and cloud region.
-- **Template Schemas**: Cookiecutter JSON definitions, Jinja2 template files, and lockfile specifications.
-- **Test Telemetry**: Output logs from pytest, ruff lint checks, and Cloud Build pipeline executions.
-
-### 2. Reference Standards & Methodologies
-- **Google Cloud Reference Architectures**: Cloud Run, Vertex AI Reasoning Engine, Vertex AI Search.
-- **Modern Software Engineering Standards**: Clean architecture, Twelve-Factor App principles, OCI container standards.
-- **LLM Evaluation Frameworks**: RAG faithfulness, answer relevancy, and deterministic tool call verification.
-
-### 3. Model Lineage & System Architecture
-- **Target LLM Ecosystem**: Gemini 1.5 Pro, Gemini 1.5 Flash, Gemini 2.0 Flash, Claude on Vertex AI.
-- **Runtime Environment**: Python 3.10+, Click, Rich, Cookiecutter, Docker, Terraform.
-
-### 4. Data Privacy, Governance & Retention
-- **Zero Telemetry Leaks**: Project generation runs entirely on local developer workstations with zero remote telemetry dispatch.
-- **Secret Isolation**: Generated projects store secrets exclusively in environment variables or Secret Manager, never in version control.
-- **Local Artifact Ownership**: All scaffolded assets are fully owned by the developer upon generation.
-
----
-
-## Limitations
 
 ### 1. Dependency Version Churn Across Multi-Language Frameworks
 - **Limitation**: Fast-evolving upstream dependencies in GenAI libraries can occasionally cause transient lockfile conflicts.
@@ -238,102 +161,7 @@ Execution is governed by deterministic refusal triggers with standardized error 
 | - Base model lineage & deterministic engines | Section 3 | Verified |
 | - Data privacy, retention lifecycle & MITRE/OWASP | Section 4 | Verified |
 | **Its limitations** | [Limitations](#limitations) | **Covered** |
-| - Deterministic Multi-Stage Decision Pipeline
-The scaffolding engine operates through a deterministic 5-stage pipeline translating user requirements into verified, production-ready GenAI agent codebases.
-
-```
-+-----------------------------------------------------------------------------------+
-|                   Deterministic Agent Starter Pack Pipeline                       |
-+-----------------------------------------------------------------------------------+
-|  [Stage 1: Intent Ingestion & Parameter Validation Gate]                          |
-|     --> Ingest project specifications, validate language, runtime, & target flags  |
-+-----------------------------------------+-----------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-|  [Stage 2: Architectural Template & Pattern Resolution]                           |
-|     --> Match prompt intent against ADK, Agentic RAG, LangGraph, or A2A archetypes |
-+-----------------------------------------+-----------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-|  [Stage 3: Parameterized Code Generation & Dependency Locking]                    |
-|     --> Render cookiecutter templates, lock package dependencies, & configure envs|
-+-----------------------------------------+-----------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-|  [Stage 4: Cloud Infrastructure & CI/CD Pipeline Manifestation]                   |
-|     --> Emit Terraform definitions, Dockerfiles, & Cloud Build deployment triggers|
-+-----------------------------------------+-----------------------------------------+
-                                          |
-                                          v
-+-----------------------------------------------------------------------------------+
-|  [Stage 5: Quality Assurance, Automated Tests & Eval Verification]                |
-|     --> Execute baseline unit test suite, linter rules, & verify clean project exit|
-+-----------------------------------------------------------------------------------+
-```
-
-### 2. Mathematical Decision & Affinity Scoring
-Template selection across candidate architectures $t \in T$ is resolved by evaluating multi-attribute alignment with user requirements $R$:
-
-$$S_{\text{match}}(t) = w_1 \cdot \text{ArchitectureFit}(t, R) + w_2 \cdot \text{RuntimeCompatibility}(t, R) + w_3 \cdot \text{CloudTargetSupport}(t, R)$$
-
-Where:
-- $w_1 = 0.45$: Alignment between task complexity (e.g. conversational vs. multi-hop RAG) and template architecture.
-- $w_2 = 0.35$: Strict runtime match with chosen language (Python $\ge 3.10$, TypeScript, Go, Java).
-- $w_3 = 0.20$: Target infrastructure capability score (Cloud Run vs. Vertex AI Reasoning Engine).
-
-Automated quality gate verification before project release requires satisfying the compound threshold:
-
-$$Q_{\text{gate}}(p) = \alpha \cdot \text{TestPassRate}(p) + \beta \cdot \text{LintCompliance}(p) + \gamma \cdot \text{EvalScore}(p) \ge \tau_{\text{ready}}$$
-
-Where $\alpha = 0.40$, $\beta = 0.30$, $\gamma = 0.30$, and $\tau_{\text{ready}} = 0.95$.
-
-### 3. Thresholding & Refusal Decision Criteria
-Execution is governed by deterministic refusal triggers with standardized error codes:
-
-| Threshold Parameter | Value | Decision / Refusal Action | Error Code |
-| :--- | :--- | :--- | :--- |
-| **Directory Hygiene** | Target path exists and non-empty | Refuse generation without `--overwrite` flag | `ERR_DIRTY_OUTPUT_DIRECTORY` |
-| **GCP Project Identifier** | Malformed project ID format | Reject input and mandate valid GCP project string | `ERR_INVALID_GCP_PROJECT_ID` |
-| **Template Compatibility** | Incompatible language/runtime | Abort generation and list valid matrix pairs | `ERR_TEMPLATE_COMPATIBILITY_CONFLICT` |
-| **Eval Quality Gate** | $Q_{\text{gate}} < 0.95$ | Block completion and report failing test diagnostics | `ERR_EVAL_BENCHMARK_SCORE_FAILED` |
-| **Security IAM Scope** | Wildcard `roles/owner` requested | Reject privilege escalation and enforce least privilege | `ERR_INSUFFICIENT_CLOUD_IAM_PERMISSIONS` |
-
-### 4. Multi-Tier Fallback Mechanisms & Human-in-the-Loop Governance
-1. **Tier 1 (Automated Formatting & Dependency Auto-Fix)**: When template generation triggers linter or type-checker warnings, the engine automatically runs `ruff format` and dependency resolution passes.
-2. **Tier 2 (Template Downgrade & Alternative Suggestion)**: If an advanced architecture (e.g. A2A or Multimodal Live) lacks required runtime bindings, the engine suggests the standard ADK base template.
-3. **Tier 3 (Interactive Developer Sign-Off)**: Cloud deployment configurations that provision billable resources or modify cloud IAM permissions require affirmative developer confirmation before manifest generation.
-
----
-
-## The Data It Uses
-
-### 1. Ingestion Data & Input Types
-- **Project Configuration**: Project name, chosen language runtime, agent framework, frontend type, and cloud region.
-- **Template Schemas**: Cookiecutter JSON definitions, Jinja2 template files, and lockfile specifications.
-- **Test Telemetry**: Output logs from pytest, ruff lint checks, and Cloud Build pipeline executions.
-
-### 2. Reference Standards & Methodologies
-- **Google Cloud Reference Architectures**: Cloud Run, Vertex AI Reasoning Engine, Vertex AI Search.
-- **Modern Software Engineering Standards**: Clean architecture, Twelve-Factor App principles, OCI container standards.
-- **LLM Evaluation Frameworks**: RAG faithfulness, answer relevancy, and deterministic tool call verification.
-
-### 3. Model Lineage & System Architecture
-- **Target LLM Ecosystem**: Gemini 1.5 Pro, Gemini 1.5 Flash, Gemini 2.0 Flash, Claude on Vertex AI.
-- **Runtime Environment**: Python 3.10+, Click, Rich, Cookiecutter, Docker, Terraform.
-
-### 4. Data Privacy, Governance & Retention
-- **Zero Telemetry Leaks**: Project generation runs entirely on local developer workstations with zero remote telemetry dispatch.
-- **Secret Isolation**: Generated projects store secrets exclusively in environment variables or Secret Manager, never in version control.
-- **Local Artifact Ownership**: All scaffolded assets are fully owned by the developer upon generation.
-
----
-
-## Limitations
-
-### 1. Dependency Version Churn Across Multi-Language Frameworks | Section 1 | Verified |
+| - Dependency Version Churn Across Multi-Language Frameworks | Section 1 | Verified |
 | - Google Cloud Quota Limits During Automated Integration Testing | Section 2 | Verified |
 | - Variable Latency in Large RAG Document Indexing Operations | Section 3 | Verified |
 | - Divergence Between Local Container Emulation and Cloud Run Runtime | Section 4 | Verified |
